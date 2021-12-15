@@ -14,6 +14,7 @@ public class AsciiArt {
     public static int[] patchSize=new int[]{10,20};//experimentall derived from font size
     public static int rowOffset=15;//experimentally derived from font size
     public static void main(String[] args) throws IOException {
+        //make char list
         chars=new char[unicodeRange[1]-unicodeRange[0]];
         for(int n=0;n<chars.length;n++){
             chars[n]=(char)(unicodeRange[0]+n);
@@ -21,6 +22,8 @@ public class AsciiArt {
         System.out.print("using: ");
         System.out.println(chars);
 
+
+        //make an image for each char
         Font font=new Font(Font.MONOSPACED,Font.PLAIN,fontSize);
         charImages=new BufferedImage[chars.length];
         for(int n=0;n<chars.length;n++){
@@ -43,6 +46,8 @@ public class AsciiArt {
         }
         popImage(grayImg);
 
+
+        //find optimal char for each patch
         char[][] ascii=new char[grayImg.getWidth()/patchSize[0]][grayImg.getHeight()/patchSize[1]];
         for(int px=0;px<ascii.length;px++){
             for(int py=0;py<ascii[0].length;py++){
@@ -69,6 +74,7 @@ public class AsciiArt {
             }
         }
 
+        //create image from chars in ascii[][]
         BufferedImage asciiImg=new BufferedImage(grayImg.getWidth(),grayImg.getHeight(),BufferedImage.TYPE_BYTE_GRAY);
         Graphics2D g=asciiImg.createGraphics();
         g.setFont(font);
@@ -82,6 +88,7 @@ public class AsciiArt {
         }
         popImage(asciiImg);
 
+        //print chars in ascii[][]
         for(int y=0;y<ascii[0].length;y++){
             for(int x=0;x<ascii.length;x++){
                 System.out.print(ascii[x][y]);
