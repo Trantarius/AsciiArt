@@ -1,3 +1,3 @@
 # AsciiArt
 
-I don't any more than you do.
+I don't know any more than you do.
